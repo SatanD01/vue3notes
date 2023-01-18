@@ -2,17 +2,21 @@
   <div class="notes-list">
     <div class="note-item" v-for="(note, index) in items" :key="index">
       <div class="note-header">
-        <p>{{ note }}</p>
+        <p>{{ note.title }}</p>
         <p style="cursor: pointer;" @click="$emit('onRemove', index)">&#10005;</p>
       </div>
-      <!--      <div class="note-footer">{{ note }}</div>-->
+      <div class="note-footer" >
+        <TheTagsList is-preview v-if="note.tags && note.tags.length > 0" :items="note.tags"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import TheTagsList from "@/components/UI/TheTagsList";
 export default {
   name: "TheList",
+  components: {TheTagsList},
   props: {
     items: {
       type: Array,
@@ -35,6 +39,7 @@ export default {
   background-color: white;
   transition: all 0.25s cubic-bezier(0.02, 0.01, 0.47, 1);
   box-shadow: 0 30px 30px rgba(0, 0, 0, 0.02);
+
   &:hover {
     box-shadow: 0 30px 30px rgba(0, 0, 0, 0.04);
     transform: translate(0, -6px);

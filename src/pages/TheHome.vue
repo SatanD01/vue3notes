@@ -1,6 +1,17 @@
 <template>
   <div class="md-body">
-    <h1>hello home</h1>
-    <p>Edit me</p>
+    <TheForm @onSubmit="handleSubmit"/>
   </div>
 </template>
+
+<script>
+import TheForm from "@/components/Notes/TheForm";
+export default {
+  components: {TheForm},
+  methods: {
+    handleSubmit(note) {
+      console.log(note)
+    }
+  }
+}
+</script>

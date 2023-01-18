@@ -17,8 +17,11 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$emit('onSubmit', this.value);
-      console.log(this.value);
+      const name = 'evgani';
+      const age = 24;
+      this.$emit('test', {name, age})
+      // this.$emit('onSubmit', this.value);
+      // console.log(this.value);
       this.value = '';
     }
   }

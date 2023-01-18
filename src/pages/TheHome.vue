@@ -1,18 +1,25 @@
 <template>
-  <TheForm @test="handleTest"/>
+  <TheForm @onSubmit="handleSubmit"/>
+  <TheList @onRemove="handleRemove" :items="notes"/>
 </template>
 
 <script>
 import TheForm from "@/components/Notes/TheForm";
+import TheList from "@/components/Notes/TheList";
 
 export default {
-  components: {TheForm},
+  components: {TheList, TheForm},
+  data() {
+    return {
+      notes: ['task 1', 'task 2', 'task 3']
+    }
+  },
   methods: {
     handleSubmit(note) {
-      console.log(note)
+      this.notes.push(note);
     },
-    handleTest(value) {
-      console.log('hello test', value.name, value.age)
+    handleRemove(idx) {
+      this.notes.splice(idx, 1);
     }
   }
 }

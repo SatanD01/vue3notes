@@ -7,7 +7,7 @@ export const site = {
 }
 
 export const app = {
-  title: 'Template'
+  title: 'Notes'
 }
 
 export const links = [

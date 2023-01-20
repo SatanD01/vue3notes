@@ -1,59 +1,37 @@
 <template>
-  <TheForm @onSubmit="handleSubmit"/>
-  <TheList @onRemove="handleRemove" :items="notes"/>
+  <h1>Simple users</h1>
+  <ul>
+    <li v-for="user in getUsers" :key="user.id">
+      <p>{{ user.id }}</p>
+      <p>{{ user.name }}</p>
+      <p>{{ user.admin ? "Admin" : "User" }}</p>
+    </li>
+  </ul>
+  <br>
+  <br>
+  <input type="number" v-model="userId">
+  <p>{{ getUser }}</p>
+  <br>
+  <br>
+  <p>{{ getUsersLength }}</p>
 </template>
 
 <script>
-import TheForm from "@/components/Notes/TheForm";
-import TheList from "@/components/Notes/TheList";
-
 export default {
-  components: {TheList, TheForm},
   data() {
-    return {
-      notes: [
-        {
-          title: 'Learn Vue3',
-          tags: ['work']
-        },
-        {
-          title: 'Finish course',
-          tags: ['work', 'home']
-        },
-        {
-          title: 'hello',
-          tags: []
-        }
-      ]
+    return{
+      userId: 3
     }
   },
-  mounted() {
-    this.getNotes();
-  },
-  watch: {
-    notes: {
-      handler(updateList) {
-        localStorage.setItem('notes', JSON.stringify(updateList))
-      },
-      deep: true
-    }
-  },
-  methods: {
-    getNotes() {
-      const localNotes = localStorage.getItem('notes');
-      if (localNotes){
-        this.notes = JSON.parse(localNotes);
-      }
+  computed: {
+    getUsers() {
+      return this.$store.getters.getUsers;
     },
-    handleSubmit(title) {
-      const note = {
-        title: title,
-        tags: []
-      }
-      this.notes.push(note);
+    getUsersLength() {
+      return this.$store.getters.getUsersLength;
     },
-    handleRemove(idx) {
-      this.notes.splice(idx, 1);
+    getUser() {
+      return this.$store.getters.getUsersById(this.userId) || 'not found';
     }
   }
 }
